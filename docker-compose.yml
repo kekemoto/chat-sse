@@ -1,0 +1,25 @@
+version: '3'
+services:
+
+  ruby:
+    build: .
+    image: chat-ruby:1
+    container_name: chat-ruby
+    ports:
+      - 80:80
+    volumes:
+      - ./:/root/chat
+    stdin_open: true
+    tty: true
+
+  mysql:
+    image: mysql:8
+    container_name: chat-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+
+  redis:
+    image: redis:6
+    container_name: chat-redis
+    restart: always

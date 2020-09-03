@@ -1,0 +1,106 @@
+:root {
+	--border-color: rgb(225, 225, 225);
+	--background-color: white;
+	--max-width: 60rem;
+	--chat-message-lean: 2em;
+}
+
+body {
+	font-family: 'M PLUS 1p', Arial;
+	font-weight: 300;
+	padding: 2em;
+}
+
+.login {
+	display: flex;
+	justify-content: center;
+	padding-top: 40vh;
+}
+
+.user-list {
+	max-width: var(--max-width);
+	margin: 0 auto;
+}
+
+.user-list-item {
+	display: flex;
+	border-bottom: solid 1px var(--border-color);
+	padding: 0.5em;
+}
+.user-list-name {
+	flex: auto;
+}
+.user-list-unread {
+	flex: initial;
+}
+
+.chat {
+	max-width: var(--max-width);
+	margin: 0 auto;
+}
+
+.chat-list {
+	display: flex;
+	flex-direction: column;
+}
+
+.chat-message {
+	border: solid 1px var(--border-color);
+	border-radius: 1em;
+	padding: 0em 1em;
+	margin: 0.4em 0em;
+}
+
+.chat-self {
+	align-self: flex-end;
+	margin-left: var(--chat-message-lean);
+}
+
+.chat-other {
+	align-self: flex-start;
+	margin-right: var(--chat-message-lean);
+}
+
+.chat-sender {
+	display: flex;
+	position: sticky;
+	bottom: 0;
+	width: 100%;
+}
+.chat-sender-text {
+	width: 1px;
+	flex: auto;
+}
+.chat-sender-submit {
+	flex: initial;
+}
+
+.header {
+	max-width: var(--max-width);
+	margin: 0 auto 1.5rem;
+	position: sticky;
+	top: 0;
+	display: flex;
+	align-items: center;
+	font-size: 150%;
+	background-color: var(--background-color);
+}
+.header-back{
+	flex: initial;
+}
+.header-title{
+	flex: auto;
+	padding: 0 1.5rem;
+}
+
+/* change skeleton.css */
+
+.button, button, input[type="submit"], input[type="reset"], input[type="button"] {
+	text-transform: initial;
+	margin: 0;
+	background-color: var(--background-color);
+}
+
+ul {
+	list-style-type: none;
+}

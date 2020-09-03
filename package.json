@@ -1,0 +1,36 @@
+{
+  "name": "chat-sse",
+  "version": "1.0.0",
+  "description": "chat by sse",
+  "main": "client/index.html",
+  "scripts": {
+    "build": "parcel build client/index.html --out-dir server/public",
+    "watch": "parcel watch client/index.html --out-dir server/public",
+		"redis": "docker run -it --network chat-sse_default --rm redis:6 redis-cli -h chat-redis"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kekemoto/chat-sse.git"
+  },
+  "keywords": [
+    "chat",
+    "sse",
+    "sinatra",
+    "puma",
+    "ruby",
+    "react",
+    "redis"
+  ],
+  "author": "kekemoto",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/kekemoto/chat-sse/issues"
+  },
+  "homepage": "https://github.com/kekemoto/chat-sse#readme",
+  "devDependencies": {
+    "immutable": "4.x",
+    "parcel-bundler": "1.x",
+    "react": "16.x",
+    "react-dom": "16.x"
+  }
+}
