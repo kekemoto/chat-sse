@@ -1,3 +1,4 @@
+require 'yaml'
 require 'sinatra'
 require 'redis'
 require 'connection_pool'
@@ -19,11 +20,11 @@ def json(data)
 end
 
 def redis_encode(data)
-  Marshal.dump data
+  YAML.dump data
 end
 
 def redis_decode(message)
-  Marshal.load message
+  YAML.load message
 end
 
 def chat_message_encode(sender, text)

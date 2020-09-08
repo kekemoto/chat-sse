@@ -16,6 +16,7 @@ RUN git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-buil
 RUN dnf install -y bzip2 gcc openssl-devel readline-devel zlib-devel make
 RUN ~/.rbenv/bin/rbenv install 2.7.1
 RUN ~/.rbenv/bin/rbenv global 2.7.1
+ENV RUBYOPT -EUTF-8
 
 # bundle install
 RUN mkdir /root/chat
