@@ -10,6 +10,12 @@ function App(){
 	const [users, usersAction] = useReducer(usersReducer, List())
 	const eventSource = useRef(null)
 
+	function logout(){
+		usersAction({type: 'remove', user})
+		messageBoxAction({type: 'init'})
+		setUser(null)
+	}
+
 	subscribe(eventSource, user, {
 		message: (event) => {
 			let message = JSON.parse(event.data)
@@ -35,7 +41,7 @@ function App(){
 	const talkUserOnline = users.includes(talkUser)
 
 	const PAGES = {
-		Login: <Login {...{setPage, setUser}} />,
+		Login: <Login {...{setPage, setUser, logout}} />,
 		UserList: <UserList {...{setPage, user, users, usersAction, setTalkUser, messageBox}} />,
 		Chat: <Chat {...{setPage, user, talkUser, messageBoxAction, messages: messageBox.get(talkUser, List()), online: talkUserOnline}} />,
 	}
@@ -46,6 +52,8 @@ function App(){
 function messageBoxReducer(state, action){
 	let messages = null
 	switch(action.type){
+		case 'init':
+			return Map()
 		case 'receive':
 			let sender = action.message.sender
 			messages = state.get(sender, List())
@@ -78,10 +86,10 @@ function usersReducer(state, action){
 	}
 }
 
-function Login({setPage, setUser}){
+function Login({setPage, setUser, logout}){
 	const [name, setName] = useState('')
 
-	useEffect(() => {setUser(null)}, [])
+	useEffect(logout, [])
 
 	function onChange(event){
 		setName(event.target.value)
@@ -106,7 +114,6 @@ function Login({setPage, setUser}){
 function UserList({setPage, user, users, usersAction, setTalkUser, messageBox}){
 	useEffect(() => {
 		post('/login', {user})
-		.then(response => response.json())
 		.then(data => usersAction({type: 'set', users: List(data)}))
 		.catch(reportError)
 	}, [])
@@ -214,10 +221,10 @@ function message_key(m){
 }
 
 function post(url, body){
-	return fetchCheckOk('POST', url, formData(body))
+	return fetchCheckOk('POST', url, formData(body)).then(parse_response)
 }
 function get(url, body){
-	return fetchCheckOk('GET', url, formData(body))
+	return fetchCheckOk('GET', url, formData(body)).then(parse_response)
 }
 function fetchCheckOk(method, url, body){
 	return fetch(url, {method, body}).then(response => {
@@ -226,6 +233,9 @@ function fetchCheckOk(method, url, body){
 		}
 		return response
 	})
+}
+function parse_response(res){
+	return res.json()
 }
 
 function reportError(err){
